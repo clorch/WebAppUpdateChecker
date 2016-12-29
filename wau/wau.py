@@ -66,13 +66,14 @@ class WebAppUpdater():
                 current = self.get_current_version(installations[inst]['app'], installations[inst]['path'])
                 latest = self.get_latest_version(installations[inst]['app'])
 
-                compare = self._compare_versions(current, latest)
-                if compare < 0:
-                    print(" Version: " + colored(self._format_version(current), "red") + " < " + self._format_version(latest))
-                elif compare == 0:
-                    print(" Version: " + colored(self._format_version(current), "green"))
-                elif compare > 0:
-                    print(" Version: " + colored(self._format_version(current), "yellow") + " > " + self._format_version(latest))
+                if len(current) > 0 and len(latest) > 0:
+                    compare = self._compare_versions(current, latest)
+                    if compare < 0:
+                        print(" Version: " + colored(self._format_version(current), "red") + " < " + self._format_version(latest))
+                    elif compare == 0:
+                        print(" Version: " + colored(self._format_version(current), "green"))
+                    elif compare > 0:
+                        print(" Version: " + colored(self._format_version(current), "yellow") + " > " + self._format_version(latest))
 
                 print()
 
@@ -104,6 +105,10 @@ class WebAppUpdater():
         file = os.path.join(path, self._apps[app]['current-file'])
 
         current_version = []
+
+        if not os.path.isfile(file):
+            print(colored("File not found: " + file, "red"))
+            return current_version
 
         with open(file, "r", encoding='utf8') as f:
             contents = f.read()
