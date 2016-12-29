@@ -58,8 +58,8 @@ class WebAppUpdater():
     def check_versions(self, configfile):
         with open(configfile, 'r') as ymlfile:
             installations = yaml.load(ymlfile)
-            for inst in installations:
 
+            for inst in sorted(installations):
                 print("=== " + inst + " ===")
                 print(" App:     " + installations[inst]['app'])
                 print(" Path:    " + installations[inst]['path'])
