@@ -11,15 +11,15 @@ from termcolor import colored, cprint
 #import pprint
 
 class WebAppUpdater():
-    def __init__(self):
+    def __init__(self, rootdir):
         self._apps = []
-        self._testdir = "test"
-        self._configdir = "config"
-        self._cachedir = "cache"
+        self._testdir = os.path.join(rootdir, "test")
+        self._configdir = os.path.join(rootdir, "config")
+        self._cachedir = os.path.join(rootdir, "cache")
         self._cache_age = 3600
 
     def run(self):
-        with open("config/apps.yml", 'r') as ymlfile:
+        with open(os.path.join(self._configdir, "apps.yml"), 'r') as ymlfile:
             self._apps = yaml.load(ymlfile)
 
         command = "check"
