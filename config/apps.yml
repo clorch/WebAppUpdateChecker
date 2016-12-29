@@ -70,3 +70,15 @@ piwik:
   tag-exclude: '.*(?:rc|alpha|beta|-b).*'
   current-file: core/Version.php
   current-regex: 'const\s*VERSION\s*=\s*''([0-9]*)\.?([0-9]*)\.?([0-9]*)?-?(.*)?'';'
+sgwi:
+  url: git://github.com/flok99/sgwi.git
+  tag-regex: '([0-9]+)\.?([0-9]+)?\.?([0-9]+)?'
+  tag-exclude: '.*(?:rc|alpha|beta|-b).*'
+  current-file: index.php
+  current-regex: 'Version:\s*([0-9]*)\.?([0-9]*)?\.?([0-9]*)?'
+poweradmin:
+  url: git://github.com/poweradmin/poweradmin.git
+  tag-regex: 'v([0-9]+)\.?([0-9]+)?\.?([0-9]+)?'
+  tag-exclude: '.*(?:rc|alpha|beta|-b).*'
+  current-file: vendor/poweradmin/Version.php
+  current-regex: 'const\s*VERSION\s*=\s*''([0-9]*)\.?([0-9]*)?\.?([0-9]*)?'';'

@@ -8,7 +8,6 @@ import time
 import json
 from termcolor import colored, cprint
 
-#import pprint
 
 class WebAppUpdater():
     def __init__(self, rootdir):
@@ -52,7 +51,7 @@ class WebAppUpdater():
                 repo = git.Repo()
                 git.Repo.clone_from(self._apps[app]["url"], repo_path, depth=1)
 
-        with open(s.path.join(self._configdir, "installations-test.yml"), 'w') as outfile:
+        with open(os.path.join(self._configdir, "installations-test.yml"), 'w') as outfile:
             yaml.dump(installations, outfile, default_flow_style=False)
 
     def check_versions(self, configfile):
