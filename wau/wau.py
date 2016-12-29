@@ -3,6 +3,7 @@ import re
 import git
 import os
 import sys
+from termcolor import colored, cprint
 
 #import pprint
 
@@ -13,9 +14,6 @@ class WebAppUpdater():
     def run(self):
         with open("config/apps.yml", 'r') as ymlfile:
             self._apps = yaml.load(ymlfile)
-            # for app in self._apps:
-            #     print(app)
-            #     print(self.get_latest_version(app))
 
         command = "check"
         if len(sys.argv) > 1:
@@ -23,7 +21,7 @@ class WebAppUpdater():
 
         if command == "check":
             self.check_versions("config/installations.yml")
-        if command == "test_run":
+        elif command == "test_run":
             self.check_versions("config/installations-test.yml")
         elif command == "test_prepare":
             self.test_prepare()
@@ -51,11 +49,19 @@ class WebAppUpdater():
         with open(configfile, 'r') as ymlfile:
             installations = yaml.load(ymlfile)
             for inst in installations:
+
+                current = self.get_current_version(installations[inst]['app'], installations[inst]['path'])
+                latest = self.get_latest_version(installations[inst]['app'])
+
+                color = "red"
+                if current == latest:
+                    color = "green"
+
                 print("=== " + inst + " ===")
-                print("Application: " + installations[inst]['app'])
-                print("Path: " + installations[inst]['path'])
-                print("Current Version: " + self.get_current_version(installations[inst]['app'], installations[inst]['path']))
-                print("Latest Version: " + self.get_latest_version(installations[inst]['app']))
+                print("App:     " + installations[inst]['app'])
+                print("Path:    " + installations[inst]['path'])
+                print("Latest:  " + latest)
+                print("Current: " + colored(current, color))
                 print()
 
     def get_current_version(self, app, path):
