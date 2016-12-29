@@ -2,6 +2,7 @@ import yaml
 import re
 import git
 import os
+import sys
 
 #import pprint
 
@@ -16,7 +17,38 @@ class WebAppUpdater():
             #     print(app)
             #     print(self.get_latest_version(app))
 
-        with open("config/installations.yml", 'r') as ymlfile:
+        command = "check"
+        if len(sys.argv) > 1:
+            command = sys.argv[1]
+
+        if command == "check":
+            self.check_versions("config/installations.yml")
+        if command == "test_run":
+            self.check_versions("config/installations-test.yml")
+        elif command == "test_prepare":
+            self.test_prepare()
+        else:
+            print("Unknown command")
+
+    def test_prepare(self):
+        installations = {}
+
+        for app in self._apps:
+            print(app)
+
+            repo_path = os.path.join("test", app + ".git")
+            installations[app + "-test"] = {"app":app, "path":repo_path }
+
+            if not os.path.exists(repo_path):
+                print("   Cloning repository...")
+                repo = git.Repo()
+                git.Repo.clone_from(self._apps[app]["url"], repo_path, depth=1)
+
+        with open("config/installations-test.yml", 'w') as outfile:
+            yaml.dump(installations, outfile, default_flow_style=False)
+
+    def check_versions(self, configfile):
+        with open(configfile, 'r') as ymlfile:
             installations = yaml.load(ymlfile)
             for inst in installations:
                 print("=== " + inst + " ===")
@@ -25,7 +57,7 @@ class WebAppUpdater():
                 print("Current Version: " + self.get_current_version(installations[inst]['app'], installations[inst]['path']))
                 print("Latest Version: " + self.get_latest_version(installations[inst]['app']))
                 print()
-        
+
     def get_current_version(self, app, path):
         file = os.path.join(path, self._apps[app]['current-file'])
 

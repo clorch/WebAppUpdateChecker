@@ -34,3 +34,39 @@ modx:
   tag-exclude: '.*(?:rc|alpha|beta).*'
   current-file: core/docs/version.inc.php
   current-regex: ['\$v\[''version''\]=\s*''([0-9]+)'';', '\$v\[''major_version''\]=\s*''([0-9]+)'';', '\$v\[''minor_version''\]=\s*''([0-9]+)'';']
+wordpress:
+  url: git://core.git.wordpress.org/
+  tag-regex: '([0-9]+)\.?([0-9]+)?\.?([0-9]+)?'
+  tag-exclude: '.*(?:rc|alpha|beta).*'
+  current-file: wp-includes/version.php
+  current-regex: '\$wp_version\s*=\s*''(.*)'';'
+processwire:
+  url: git://github.com/processwire/processwire.git
+  tag-regex: '([0-9]+)\.([0-9]+)\.([0-9]+)'
+  tag-exclude: '.*(?:rc|alpha|beta).*'
+  current-file: wire/core/ProcessWire.php
+  current-regex: ['const\s*versionMajor\s*=\s*([0-9]+);', 'const\s*versionMinor\s*=\s*([0-9]+);', 'const\s*versionRevision\s*=\s*([0-9]+);']
+grav:
+  url: git://github.com/getgrav/grav.git
+  tag-regex: '([0-9]+)\.([0-9]+)\.([0-9]+)'
+  tag-exclude: '.*(?:rc|alpha|beta).*'
+  current-file: system/defines.php
+  current-regex: 'define\(''GRAV_VERSION'',\s*''(.*)''\);'
+limesurvey:
+  url: git://github.com/LimeSurvey/LimeSurvey.git
+  tag-regex: '([0-9]+)\.([0-9]+)\.([0-9]+)\+([0-9]+)'
+  tag-exclude: '.*(?:rc|alpha|beta).*'
+  current-file: application/config/version.php
+  current-regex: '\$config\[''versionnumber''\]\s*=\s*''(.*)'';'
+mediawiki:
+  url: https://gerrit.wikimedia.org/r/p/mediawiki/core.git
+  tag-regex: '([0-9]+)\.([0-9]+)\.([0-9]+)'
+  tag-exclude: '.*(?:rc|alpha|beta).*'
+  current-file: includes/DefaultSettings.php
+  current-regex: '\$wgVersion\s*=\s*''(.*)'';'
+piwik:
+  url: git://github.com/piwik/piwik.git
+  tag-regex: '([0-9]+)\.([0-9]+)\.([0-9]+)'
+  tag-exclude: '.*(?:rc|alpha|beta|-b).*'
+  current-file: core/Version.php
+  current-regex: 'const\s*VERSION\s*=\s*''(.*)'';'
