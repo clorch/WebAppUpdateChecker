@@ -1,0 +1,36 @@
+kirby:
+  url: git://github.com/getkirby/kirby.git
+  tag-regex: '([0-9]+)\.([0-9]+)\.([0-9]+)'
+  tag-exclude: '.*(?:rc|alpha|beta).*'
+  current-file: kirby.php
+  current-regex: '\$version\s*=\s*''(.*)'';'
+phpmyadmin:
+  url: git://github.com/phpmyadmin/phpmyadmin.git
+  tag-regex: 'RELEASE_([0-9]+)_([0-9]+)_([0-9]+)_?([0-9]+)?'
+  tag-exclude: ".*(?:rc|alpha|beta).*"
+  current-file: libraries/Config.php
+  current-regex: '\$this->set\(''PMA_VERSION'',\s*''(.*)''\);'
+baikal:
+  url: git://github.com/fruux/Baikal.git
+  tag-regex: '([0-9]+)\.([0-9]+)\.([0-9]+)'
+  tag-exclude: '.*(?:rc|alpha|beta).*'
+  current-file: Core/Distrib.php
+  current-regex: 'define\("BAIKAL_VERSION",\s*"(.*)"\);'
+roundcube:
+  url: git://github.com/roundcube/roundcubemail.git
+  tag-regex: 'v?([0-9]+)\.([0-9]+)\.?([0-9]+)?'
+  tag-exclude: '.*(?:rc|alpha|beta).*'
+  current-file: program/include/iniset.php
+  current-regex: 'define\(''RCMAIL_VERSION'',\s*''(.*)''\);'
+nextcloud:
+  url: git://github.com/nextcloud/server.git
+  tag-regex: 'v([0-9]+)\.([0-9]+)\.?([0-9]+)?'
+  tag-exclude: '.*(?:rc|alpha|beta).*'
+  current-file: version.php
+  current-regex: '\$OC_VersionString\s*=\s*''(.*)'';'
+modx:
+  url: git://github.com/modxcms/revolution.git
+  tag-regex: 'v([0-9]+)\.([0-9]+)\.([0-9]+)-pl([0-9]*)'
+  tag-exclude: '.*(?:rc|alpha|beta).*'
+  current-file: core/docs/version.inc.php
+  current-regex: ['\$v\[''version''\]=\s*''([0-9]+)'';', '\$v\[''major_version''\]=\s*''([0-9]+)'';', '\$v\[''minor_version''\]=\s*''([0-9]+)'';']
