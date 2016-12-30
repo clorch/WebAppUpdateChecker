@@ -21,6 +21,8 @@ class WebAppUpdater():
         with open(os.path.join(self._configdir, "apps.yml"), 'r') as ymlfile:
             self._apps = yaml.load(ymlfile)
 
+        self._clean_cache()
+
         command = "check"
         if len(sys.argv) > 1:
             command = sys.argv[1]
@@ -76,6 +78,14 @@ class WebAppUpdater():
                         print(" Version: " + colored(self._format_version(current), "yellow") + " > " + self._format_version(latest))
 
                 print()
+
+    def _clean_cache(self):
+        for fn in os.listdir(self._cachedir):
+            f = os.path.join(self._cachedir, fn)
+            if not os.path.isfile(f):
+                continue
+            if os.path.getmtime(f) < time.time() - self._cache_age:
+                os.remove(f)
 
     def _format_version(self, version):
         s = ""
