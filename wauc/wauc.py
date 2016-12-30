@@ -11,7 +11,7 @@ import git
 from termcolor import colored
 
 
-class WebAppUpdater():
+class WebAppUpdateChecker():
     def __init__(self, rootdir):
         self._apps = []
         self._testdir = os.path.join(rootdir, "test")
@@ -214,5 +214,5 @@ class WebAppUpdater():
 if __name__ == '__main__':
     rootdir = os.path.dirname(os.path.realpath(__file__))
     rootdir = os.path.dirname(rootdir)
-    myWau = WebAppUpdater(rootdir)
-    myWau.run()
+    myWauc = WebAppUpdateChecker(rootdir)
+    myWauc.run()
