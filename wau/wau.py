@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import os
 import sys
 import time
@@ -208,3 +209,10 @@ class WebAppUpdater():
             hash_ref_list = ref.split('\t')
             remote_refs[hash_ref_list[1]] = hash_ref_list[0]
         return remote_refs
+
+
+if __name__ == '__main__':
+    rootdir = os.path.dirname(os.path.realpath(__file__))
+    rootdir = os.path.dirname(rootdir)
+    myWau = WebAppUpdater(rootdir)
+    myWau.run()
