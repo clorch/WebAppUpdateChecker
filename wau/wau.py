@@ -1,12 +1,13 @@
-import yaml
-import re
-import git
 import os
 import sys
-import hashlib
 import time
 import json
-from termcolor import colored, cprint
+import re
+import hashlib
+
+import yaml
+import git
+from termcolor import colored
 
 
 class WebAppUpdater():
@@ -28,11 +29,15 @@ class WebAppUpdater():
             command = sys.argv[1]
 
         if command == "check":
-            self.check_versions(os.path.join(self._configdir, "installations.yml"))
+            f = os.path.join(self._configdir, "installations.yml")
+            self.check_versions(f)
         elif command == "test_run":
-            self.check_versions(os.path.join(self._configdir, "installations-test.yml"))
+            f = os.path.join(self._configdir, "installations-test.yml")
+            self.check_versions(f)
         elif command == "test_prepare":
             self.test_prepare()
+        elif command == "help":
+            print("Usage: {:}".format(sys.argv[0]))
         else:
             print("Unknown command")
 
@@ -46,14 +51,15 @@ class WebAppUpdater():
             print(app)
 
             repo_path = os.path.join(self._testdir, app + ".git")
-            installations[app + "-test"] = {"app":app, "path":repo_path }
+            installations[app + "-test"] = {"app": app, "path": repo_path}
 
             if not os.path.exists(repo_path):
                 print("   Cloning repository...")
                 repo = git.Repo()
                 git.Repo.clone_from(self._apps[app]["url"], repo_path, depth=1)
 
-        with open(os.path.join(self._configdir, "installations-test.yml"), 'w') as outfile:
+        f = os.path.join(self._configdir, "installations-test.yml")
+        with open(f, 'w') as outfile:
             yaml.dump(installations, outfile, default_flow_style=False)
 
     def check_versions(self, configfile):
@@ -65,17 +71,23 @@ class WebAppUpdater():
                 print(" App:     " + installations[inst]['app'])
                 print(" Path:    " + installations[inst]['path'])
 
-                current = self.get_current_version(installations[inst]['app'], installations[inst]['path'])
-                latest = self.get_latest_version(installations[inst]['app'])
+                app = installations[inst]['app']
+                path = installations[inst]['path']
+                current = self.get_current_version(app, path)
+                latest = self.get_latest_version(app)
 
                 if len(current) > 0 and len(latest) > 0:
+                    lv = self._format_version(latest)
                     compare = self._compare_versions(current, latest)
                     if compare < 0:
-                        print(" Version: " + colored(self._format_version(current), "red") + " < " + self._format_version(latest))
+                        cv = colored(self._format_version(current), "red")
+                        print(" Version: {:} < {:}".format(cv, lv))
                     elif compare == 0:
-                        print(" Version: " + colored(self._format_version(current), "green"))
+                        cv = colored(self._format_version(current), "green")
+                        print(" Version: {:}".format(cv))
                     elif compare > 0:
-                        print(" Version: " + colored(self._format_version(current), "yellow") + " > " + self._format_version(latest))
+                        cv = colored(self._format_version(current), "yellow")
+                        print(" Version: {:} > {:}".format(cv, lv))
 
                 print()
 
@@ -108,7 +120,6 @@ class WebAppUpdater():
                 return 1
             elif int(v1[i]) < int(v2[i]):
                 return -1
-            
         return 0
 
     def get_current_version(self, app, path):
@@ -142,14 +153,17 @@ class WebAppUpdater():
         tags = self._get_tags(app['url'])
 
         for tag in tags:
-            if re.match(app['tag-exclude'], tag, flags=re.IGNORECASE) is not None:
+            match = re.match(app['tag-exclude'], tag, flags=re.IGNORECASE)
+            if match is not None:
                 continue
-            
             match = pattern.match(tag)
             if match is not None:
                 versions.append(match.groups())
 
-        versions.sort(key= lambda row: tuple(0 if item is None or item == "" else (int(item) if item.isdigit() else item) for item in row))
+        versions.sort(key=lambda row:
+                      tuple(0 if item is None or item == "" else (
+                            int(item) if item.isdigit() else item)
+                            for item in row))
 
         return [x for x in versions[-1] if x is not None and x is not ""]
 
@@ -161,7 +175,7 @@ class WebAppUpdater():
             r = r.replace("refs/tags/", "")
             r = r.replace("^{}", "")
 
-            if not r in tags:
+            if r not in tags:
                 tags.append(r)
 
         return tags
@@ -180,7 +194,7 @@ class WebAppUpdater():
                     return json.loads(data)
 
         data = self._lsremote_tags(url)
-        
+
         with open(cachefile, "w", encoding='utf8') as f:
             jdata = json.dumps(data)
             f.write(jdata)
@@ -194,5 +208,3 @@ class WebAppUpdater():
             hash_ref_list = ref.split('\t')
             remote_refs[hash_ref_list[1]] = hash_ref_list[0]
         return remote_refs
-
-    
