@@ -57,7 +57,7 @@ limesurvey:
   tag-regex: '([0-9]+)\.([0-9]+)\.([0-9]+)\+([0-9]+)'
   tag-exclude: '.*(?:rc|alpha|beta).*'
   current-file: application/config/version.php
-  current-regex: '\$config\[''versionnumber''\]\s*=\s*''([0-9]*)\.?([0-9]*)?\.?([0-9]*)?'';'
+  current-regex: ['\$config\[''versionnumber''\]\s*=\s*''([0-9]*)\.?([0-9]*)?\.?([0-9]*)?'';', '\$config\[''buildnumber''\]\s*=\s*''([0-9]*)'';']
 mediawiki:
   url: https://gerrit.wikimedia.org/r/p/mediawiki/core.git
   tag-regex: '([0-9]+)\.([0-9]+)\.([0-9]+)'
