@@ -25,20 +25,23 @@ class WebAppUpdateChecker():
 
         self._clean_cache()
 
-        command = "check"
+        command = "short"
         if len(sys.argv) > 1:
             command = sys.argv[1]
 
-        if command == "check":
+        if command == "short":
             f = os.path.join(self._configdir, "installations.yml")
-            self.check_versions(f)
-        elif command == "test_run":
-            f = os.path.join(self._configdir, "installations-test.yml")
+            self.check_versions(f, verbose=False)
+        elif command == "full":
+            f = os.path.join(self._configdir, "installations.yml")
             self.check_versions(f)
         elif command == "test_prepare":
             self.test_prepare()
+        elif command == "test_run":
+            f = os.path.join(self._configdir, "installations-test.yml")
+            self.check_versions(f)
         elif command == "help":
-            print("Usage: {:}".format(sys.argv[0]))
+            print("Usage: {:} <command>".format(sys.argv[0]))
         else:
             print("Unknown command")
 
@@ -63,14 +66,19 @@ class WebAppUpdateChecker():
         with open(f, 'w') as outfile:
             yaml.dump(installations, outfile, default_flow_style=False)
 
-    def check_versions(self, configfile):
+    def check_versions(self, configfile, verbose=True):
         with open(configfile, 'r') as ymlfile:
             installations = yaml.load(ymlfile)
+            max_app_len = len(max(installations, key=len))
 
             for inst in sorted(installations):
-                print("=== " + inst + " ===")
-                print(" App:     " + installations[inst]['app'])
-                print(" Path:    " + installations[inst]['path'])
+                if verbose:
+                    print("=== " + inst + " ===")
+                    print(" App:     " + installations[inst]['app'])
+                    print(" Path:    " + installations[inst]['path'])
+                    print(" Version: ", end="")
+                else:
+                    print(inst.ljust(max_app_len + 2), end="")
 
                 app = installations[inst]['app']
                 path = installations[inst]['path']
@@ -82,15 +90,16 @@ class WebAppUpdateChecker():
                     compare = self._compare_versions(current, latest)
                     if compare < 0:
                         cv = colored(self._format_version(current), "red")
-                        print(" Version: {:} < {:}".format(cv, lv))
+                        print("{:} < {:}".format(cv, lv))
                     elif compare == 0:
                         cv = colored(self._format_version(current), "green")
-                        print(" Version: {:}".format(cv))
+                        print("{:}".format(cv))
                     elif compare > 0:
                         cv = colored(self._format_version(current), "yellow")
-                        print(" Version: {:} > {:}".format(cv, lv))
+                        print("{:} > {:}".format(cv, lv))
 
-                print()
+                if verbose:
+                    print("")
 
     def _clean_cache(self):
         for fn in os.listdir(self._cachedir):
