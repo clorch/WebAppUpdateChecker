@@ -112,11 +112,19 @@ class WebAppUpdateChecker():
 
         return s
 
-    def _compare_versions(self, v1, v2):
+    def _compare_versions(self, v1a, v2a):
+        v1 = v1a[:]
+        v2 = v2a[:]
+
+        if len(v1) < len(v2):
+            v1.append("0" * (len(v2) - len(v1)))
+
+        if len(v2) < len(v1):
+            v2.append("0" * (len(v1) - len(v2)))
+
         for i in range(0, min(len(v1), len(v2))):
             if (not v1[i].isdigit()) or not (v2[i].isdigit()):
                 break
-
             if int(v1[i]) > int(v2[i]):
                 return 1
             elif int(v1[i]) < int(v2[i]):
