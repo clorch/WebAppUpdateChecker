@@ -160,7 +160,7 @@ class WebAppUpdateChecker():
                 for match in re.finditer(p, contents):
                     current_version.extend(match.groups())
 
-        return [x for x in current_version if x is not None and x is not ""]
+        return [x for x in current_version if x is not None and x.strip() is not ""]
 
     def get_latest_version(self, app):
         app = self._apps[app]
