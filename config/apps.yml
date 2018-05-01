@@ -64,8 +64,8 @@ mediawiki:
   tag-exclude: '.*(?:rc|alpha|beta).*'
   current-file: includes/DefaultSettings.php
   current-regex: '\$wgVersion\s*=\s*''([0-9]*)\.?([0-9]*)?\.?([0-9]*)?-?(.*)?'';'
-piwik:
-  url: git://github.com/piwik/piwik.git
+matomo:
+  url: git://github.com/matomo-org/matomo.git
   tag-regex: '([0-9]+)\.([0-9]+)\.([0-9]+)'
   tag-exclude: '.*(?:rc|alpha|beta|-b).*'
   current-file: core/Version.php
