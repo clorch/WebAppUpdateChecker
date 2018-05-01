@@ -8,7 +8,7 @@ phpmyadmin:
   url: git://github.com/phpmyadmin/phpmyadmin.git
   tag-regex: 'RELEASE_([0-9]+)_([0-9]+)_([0-9]+)_?([0-9]+)?'
   tag-exclude: ".*(?:rc|alpha|beta).*"
-  current-file: libraries/Config.php
+  current-file: libraries/classes/Config.php
   current-regex: '\$this->set\(''PMA_VERSION'',\s*''([0-9]*)\.?([0-9]*)\.?([0-9]*)?\.?([0-9]*)?-?(.*)?''\);'
 baikal:
   url: git://github.com/fruux/Baikal.git
