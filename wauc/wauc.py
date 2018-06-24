@@ -5,7 +5,7 @@ import time
 import json
 import re
 import hashlib
-
+import subprocess
 import yaml
 import git
 from termcolor import colored
@@ -59,7 +59,6 @@ class WebAppUpdateChecker():
 
             if not os.path.exists(repo_path):
                 print("   Cloning repository...")
-                repo = git.Repo()
                 git.Repo.clone_from(self._apps[app]["url"], repo_path, depth=1)
 
         f = os.path.join(self._configdir, "installations-test.yml")
@@ -141,24 +140,34 @@ class WebAppUpdateChecker():
         return 0
 
     def get_current_version(self, app, path):
-        file = os.path.join(path, self._apps[app]['current-file'])
-
         current_version = []
+        contents = ""
+        pattern = ""
 
-        if not os.path.isfile(file):
-            print(colored("File not found: " + file, "red"))
+        if 'current-file' in self._apps[app]:
+            pattern = self._apps[app]['current-file-regex']
+            file = os.path.join(path, self._apps[app]['current-file'])
+
+            if os.path.isfile(file):
+                with open(file, "r", encoding='utf8') as f:
+                    contents = f.read()
+
+        if contents == '' and  'current-command' in self._apps[app]:
+            pattern = self._apps[app]['current-command-regex']
+            cmd = os.path.join(path, self._apps[app]['current-command'])
+            contents = subprocess.check_output(cmd, shell=True).decode("utf-8")
+
+        if contents == '':
+            print(colored("could not get current version", "red"))
             return current_version
 
-        with open(file, "r", encoding='utf8') as f:
-            contents = f.read()
-            pattern = self._apps[app]['current-regex']
-            if isinstance(pattern, str):
-                pattern = [pattern]
+        if isinstance(pattern, str):
+            pattern = [pattern]
 
-            for p in pattern:
-                re.compile(p)
-                for match in re.finditer(p, contents):
-                    current_version.extend(match.groups())
+        for p in pattern:
+            re.compile(p)
+            for match in re.finditer(p, contents):
+                current_version.extend(match.groups())
 
         return [x for x in current_version if x is not None and x.strip() is not ""]
 

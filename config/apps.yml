@@ -3,82 +3,90 @@ kirby:
   tag-regex: '([0-9]+)\.([0-9]+)\.([0-9]+)'
   tag-exclude: '.*(?:rc|alpha|beta).*'
   current-file: kirby.php
-  current-regex: '\$version\s*=\s*''([0-9]*)\.?([0-9]*)?\.?([0-9]*)?'';'
+  current-file-regex: '\$version\s*=\s*''([0-9]*)\.?([0-9]*)?\.?([0-9]*)?'';'
 phpmyadmin:
   url: git://github.com/phpmyadmin/phpmyadmin.git
   tag-regex: 'RELEASE_([0-9]+)_([0-9]+)_([0-9]+)_?([0-9]+)?'
   tag-exclude: ".*(?:rc|alpha|beta).*"
   current-file: libraries/classes/Config.php
-  current-regex: '\$this->set\(''PMA_VERSION'',\s*''([0-9]*)\.?([0-9]*)\.?([0-9]*)?\.?([0-9]*)?-?(.*)?''\);'
+  current-file-regex: '\$this->set\(''PMA_VERSION'',\s*''([0-9]*)\.?([0-9]*)\.?([0-9]*)?\.?([0-9]*)?-?(.*)?''\);'
 baikal:
   url: git://github.com/fruux/Baikal.git
   tag-regex: '([0-9]+)\.([0-9]+)\.([0-9]+)'
   tag-exclude: '.*(?:rc|alpha|beta).*'
   current-file: Core/Distrib.php
-  current-regex: 'define\("BAIKAL_VERSION",\s*"([0-9]*)\.?([0-9]*)?\.?([0-9]*)?"\);'
+  current-file-regex: 'define\("BAIKAL_VERSION",\s*"([0-9]*)\.?([0-9]*)?\.?([0-9]*)?"\);'
 roundcube:
   url: git://github.com/roundcube/roundcubemail.git
   tag-regex: 'v?([0-9]+)\.([0-9]+)\.?([0-9]+)?'
   tag-exclude: '.*(?:rc|alpha|beta).*'
   current-file: program/include/iniset.php
-  current-regex: 'define\(''RCMAIL_VERSION'',\s*''([0-9]*)\.?([0-9]*)?\.?([0-9]*)?-?(.*)?''\);'
+  current-file-regex: 'define\(''RCMAIL_VERSION'',\s*''([0-9]*)\.?([0-9]*)?\.?([0-9]*)?-?(.*)?''\);'
 nextcloud:
   url: git://github.com/nextcloud/server.git
   tag-regex: 'v([0-9]+)\.([0-9]+)\.?([0-9]+)?'
   tag-exclude: '.*(?:rc|alpha|beta).*'
   current-file: version.php
-  current-regex: '\$OC_VersionString\s*=\s*''([0-9]*)\.?([0-9]*)?\.?([0-9]*)?\s?(.*)?'';'
+  current-file-regex: '\$OC_VersionString\s*=\s*''([0-9]*)\.?([0-9]*)?\.?([0-9]*)?\s?(.*)?'';'
 modx:
   url: git://github.com/modxcms/revolution.git
   tag-regex: 'v([0-9]+)\.([0-9]+)\.([0-9]+)-pl([0-9]*)'
   tag-exclude: '.*(?:rc|alpha|beta).*'
   current-file: core/docs/version.inc.php
-  current-regex: ['\$v\[''version''\]=\s*''([0-9]+)'';', '\$v\[''major_version''\]=\s*''([0-9]+)'';', '\$v\[''minor_version''\]=\s*''([0-9]+)'';']
+  current-file-regex: ['\$v\[''version''\]=\s*''([0-9]+)'';', '\$v\[''major_version''\]=\s*''([0-9]+)'';', '\$v\[''minor_version''\]=\s*''([0-9]+)'';']
 wordpress:
   url: git://core.git.wordpress.org/
   tag-regex: '([0-9]+)\.?([0-9]+)?\.?([0-9]+)?'
   tag-exclude: '.*(?:rc|alpha|beta).*'
   current-file: wp-includes/version.php
-  current-regex: '\$wp_version\s*=\s*''([0-9]*)\.?([0-9]*)?\.?([0-9]*)?-?(.*)?'';'
+  current-file-regex: '\$wp_version\s*=\s*''([0-9]*)\.?([0-9]*)?\.?([0-9]*)?-?(.*)?'';'
 processwire:
   url: git://github.com/processwire/processwire.git
   tag-regex: '([0-9]+)\.([0-9]+)\.([0-9]+)'
   tag-exclude: '.*(?:rc|alpha|beta).*'
   current-file: wire/core/ProcessWire.php
-  current-regex: ['const\s*versionMajor\s*=\s*([0-9]+);', 'const\s*versionMinor\s*=\s*([0-9]+);', 'const\s*versionRevision\s*=\s*([0-9]+);']
+  current-file-regex: ['const\s*versionMajor\s*=\s*([0-9]+);', 'const\s*versionMinor\s*=\s*([0-9]+);', 'const\s*versionRevision\s*=\s*([0-9]+);']
 grav:
   url: git://github.com/getgrav/grav.git
   tag-regex: '([0-9]+)\.([0-9]+)\.([0-9]+)'
   tag-exclude: '.*(?:rc|alpha|beta).*'
   current-file: system/defines.php
-  current-regex: 'define\(''GRAV_VERSION'',\s*''([0-9]*)\.?([0-9]*)?\.?([0-9]*)?''\);'
+  current-file-regex: 'define\(''GRAV_VERSION'',\s*''([0-9]*)\.?([0-9]*)?\.?([0-9]*)?''\);'
 limesurvey:
   url: git://github.com/LimeSurvey/LimeSurvey.git
   tag-regex: '([0-9]+)\.([0-9]+)\.([0-9]+)\+?([0-9]*)'
   tag-exclude: '.*(?:rc|alpha|beta).*'
   current-file: application/config/version.php
-  current-regex: ['\$config\[''versionnumber''\]\s*=\s*''([0-9]*)\.?([0-9]*)?\.?([0-9]*)?'';', '\$config\[''buildnumber''\]\s*=\s*''([0-9]*)'';']
+  current-file-regex: ['\$config\[''versionnumber''\]\s*=\s*''([0-9]*)\.?([0-9]*)?\.?([0-9]*)?'';', '\$config\[''buildnumber''\]\s*=\s*''([0-9]*)'';']
 mediawiki:
   url: https://gerrit.wikimedia.org/r/p/mediawiki/core.git
   tag-regex: '([0-9]+)\.([0-9]+)\.([0-9]+)'
   tag-exclude: '.*(?:rc|alpha|beta).*'
   current-file: includes/DefaultSettings.php
-  current-regex: '\$wgVersion\s*=\s*''([0-9]*)\.?([0-9]*)?\.?([0-9]*)?-?(.*)?'';'
+  current-file-regex: '\$wgVersion\s*=\s*''([0-9]*)\.?([0-9]*)?\.?([0-9]*)?-?(.*)?'';'
 matomo:
   url: git://github.com/matomo-org/matomo.git
   tag-regex: '([0-9]+)\.([0-9]+)\.([0-9]+)'
   tag-exclude: '.*(?:rc|alpha|beta|-b).*'
   current-file: core/Version.php
-  current-regex: 'const\s*VERSION\s*=\s*''([0-9]*)\.?([0-9]*)\.?([0-9]*)?-?(.*)?'';'
+  current-file-regex: 'const\s*VERSION\s*=\s*''([0-9]*)\.?([0-9]*)\.?([0-9]*)?-?(.*)?'';'
 sgwi:
   url: git://github.com/flok99/sgwi.git
   tag-regex: '([0-9]+)\.?([0-9]+)?\.?([0-9]+)?'
   tag-exclude: '.*(?:rc|alpha|beta|-b).*'
   current-file: index.php
-  current-regex: 'Version:\s*([0-9]*)\.?([0-9]*)?\.?([0-9]*)?'
+  current-file-regex: 'Version:\s*([0-9]*)\.?([0-9]*)?\.?([0-9]*)?'
 poweradmin:
   url: git://github.com/poweradmin/poweradmin.git
   tag-regex: 'v([0-9]+)\.?([0-9]+)?\.?([0-9]+)?'
   tag-exclude: '.*(?:rc|alpha|beta|-b).*'
   current-file: inc/version.inc.php # later: vendor/poweradmin/Version.php
-  current-regex: '\$VERSION\s*=\s*''([0-9]*)\.?([0-9]*)?\.?([0-9]*)?'';' # later: 'const\s*VERSION\s*=\s*''([0-9]*)\.?([0-9]*)?\.?([0-9]*)?'';'
+  current-file-regex: '\$VERSION\s*=\s*''([0-9]*)\.?([0-9]*)?\.?([0-9]*)?'';' # later: 'const\s*VERSION\s*=\s*''([0-9]*)\.?([0-9]*)?\.?([0-9]*)?'';'
+gitea:
+  url: git://github.com/go-gitea/gitea.git
+  tag-regex: 'v([0-9]+)\.?([0-9]+)?\.?([0-9]+)?'
+  tag-exclude: '.*(?:rc|alpha|beta|-b).*'
+  current-command: 'gitea --version'
+  current-command-regex: 'Gitea version \s*([0-9]*)\.?([0-9]*)?\.?([0-9]*)?'
+  current-file: main.go
+  current-file-regex: 'var Version = "([0-9]*)\.?([0-9]*)\.?([0-9]*)?-?(.*)?"'
