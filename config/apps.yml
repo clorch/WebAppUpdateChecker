@@ -85,7 +85,7 @@ poweradmin:
 gitea:
   url: git://github.com/go-gitea/gitea.git
   tag-regex: 'v([0-9]+)\.?([0-9]+)?\.?([0-9]+)?'
-  tag-exclude: '.*(?:rc|alpha|beta|-b).*'
+  tag-exclude: '.*(?:rc|alpha|beta|-b|dev).*'
   current-command: 'gitea --version'
   current-command-regex: 'Gitea version \s*([0-9]*)\.?([0-9]*)?\.?([0-9]*)?'
   current-file: main.go
