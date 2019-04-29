@@ -21,7 +21,7 @@ class WebAppUpdateChecker():
 
     def run(self):
         with open(os.path.join(self._configdir, "apps.yml"), 'r') as ymlfile:
-            self._apps = yaml.load(ymlfile)
+            self._apps = yaml.safe_load(ymlfile)
 
         self._clean_cache()
 
@@ -67,7 +67,7 @@ class WebAppUpdateChecker():
 
     def check_versions(self, configfile, verbose=True):
         with open(configfile, 'r') as ymlfile:
-            installations = yaml.load(ymlfile)
+            installations = yaml.safe_load(ymlfile)
             max_app_len = len(max(installations, key=len))
 
             for inst in sorted(installations):
