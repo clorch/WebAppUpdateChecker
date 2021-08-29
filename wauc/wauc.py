@@ -169,7 +169,7 @@ class WebAppUpdateChecker():
             for match in re.finditer(p, contents):
                 current_version.extend(match.groups())
 
-        return [x for x in current_version if x is not None and x.strip() is not ""]
+        return [x for x in current_version if x is not None and x.strip() != ""]
 
     def get_latest_version(self, app):
         app = self._apps[app]
@@ -192,7 +192,7 @@ class WebAppUpdateChecker():
                             int(item) if item.isdigit() else item)
                             for item in row))
 
-        return [x for x in versions[-1] if x is not None and x is not ""]
+        return [x for x in versions[-1] if x is not None and x != ""]
 
     def _get_tags(self, url):
         refs = self._lsremote_tags_cached(url)
