@@ -48,10 +48,10 @@ processwire:
   current-file-regex: ['const\s*versionMajor\s*=\s*([0-9]+);', 'const\s*versionMinor\s*=\s*([0-9]+);', 'const\s*versionRevision\s*=\s*([0-9]+);']
 grav:
   url: https://github.com/getgrav/grav.git
-  tag-regex: '([0-9]+)\.([0-9]+)\.([0-9]+)'
+  tag-regex: '([0-9]+)\.([0-9]+)\.([0-9]+)\.?([0-9]*)'
   tag-exclude: '.*(?:rc|alpha|beta).*'
   current-file: system/defines.php
-  current-file-regex: 'define\(''GRAV_VERSION'',\s*''([0-9]*)\.?([0-9]*)?\.?([0-9]*)?''\);'
+  current-file-regex: 'define\(''GRAV_VERSION'',\s*''([0-9]*)\.?([0-9]*)?\.?([0-9]*)?\.?([0-9]*)?''\);'
 limesurvey:
   url: https://github.com/LimeSurvey/LimeSurvey.git
   tag-regex: '([0-9]+)\.([0-9]+)\.([0-9]+)\+?([0-9]*)'
