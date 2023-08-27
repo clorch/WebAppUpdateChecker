@@ -90,3 +90,9 @@ gitea:
   current-command-regex: 'Gitea version \s*([0-9]*)\.?([0-9]*)?\.?([0-9]*)?'
   current-file: main.go
   current-file-regex: 'var Version = "([0-9]*)\.?([0-9]*)\.?([0-9]*)?-?(.*)?"'
+lychee:
+  url: https://github.com/LycheeOrg/Lychee.git
+  tag-regex: 'v([0-9]+)\.?([0-9]+)?\.?([0-9]+)?'
+  tag-exclude: '.*(?:-RC|-beta|-alpha).*'
+  current-file: version.md
+  current-file-regex: '([0-9]*)\.?([0-9]*)\.?([0-9]*)'
